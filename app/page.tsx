@@ -1,3 +1,4 @@
+"use client";
 import React, { useMemo, useState } from "react";
 import { useShoppingList } from "../hooks/useShoppingList";
 import { useMemoryItems } from "../hooks/useMemoryItems";
