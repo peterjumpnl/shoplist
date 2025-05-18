@@ -1,5 +1,5 @@
 import React from "react";
-import { X } from 'lucide-react';
+import { X, GripVertical } from 'lucide-react';
 
 
 export interface ItemProps {
@@ -8,9 +8,10 @@ export interface ItemProps {
   checked: boolean;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
+  dragHandleProps?: React.HTMLAttributes<HTMLButtonElement>;
 }
 
-export default function Item({ id, text, checked, onToggle, onDelete }: ItemProps) {
+export default function Item({ id, text, checked, onToggle, onDelete, dragHandleProps }: ItemProps) {
   return (
     <li style={{
       display: "flex",
@@ -22,6 +23,23 @@ export default function Item({ id, text, checked, onToggle, onDelete }: ItemProp
       marginBottom: 8,
       boxShadow: "0 1px 4px rgba(0,0,0,0.03)"
     }}>
+      <button
+        {...dragHandleProps}
+        style={{
+          background: "none",
+          border: "none",
+          cursor: "grab",
+          padding: 0,
+          marginRight: 10,
+          display: "flex",
+          alignItems: "center",
+          color: "#bbb"
+        }}
+        aria-label="Drag to reorder"
+        tabIndex={-1}
+      >
+        <GripVertical size={20} />
+      </button>
       <input
         type="checkbox"
         checked={checked}

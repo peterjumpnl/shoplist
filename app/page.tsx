@@ -7,10 +7,32 @@ import InputBar from "../components/InputBar";
 import styles from "./page.module.css";
 import AppHeader from "../components/AppHeader";
 
+import { getOrder, setOrder } from "../lib/order";
+
 export default function Home() {
   const { items, add, update, remove, loading } = useShoppingList();
   const { items: memoryItems, add: addMemory } = useMemoryItems();
   const [input, setInput] = useState("");
+  const [order, setOrderState] = useState<number[] | null>(null);
+
+  // Load order from storage on mount
+  React.useEffect(() => {
+    getOrder().then((ord) => setOrderState(ord.length ? ord : null));
+  }, []);
+
+  // When items change, update order if needed
+  React.useEffect(() => {
+    if (items.length && order === null) {
+      setOrderState(items.map(i => i.id));
+    }
+  }, [items]);
+
+  // Sorted items by order
+  const sortedItems = useMemo(() => {
+    if (!order) return items;
+    const map = new Map(items.map(i => [i.id, i]));
+    return order.map(id => map.get(id)).filter(Boolean) as typeof items;
+  }, [items, order]);
 
   // Suggestions: show memory items that match input and aren't already on the list
   const suggestions = useMemo(() => {
@@ -30,6 +52,12 @@ export default function Home() {
     setInput("");
   };
 
+  // Handle drag-and-drop reorder
+  const handleReorder = async (newOrder: number[]) => {
+    setOrderState(newOrder);
+    await setOrder(newOrder);
+  };
+
   return (
     <div className={styles.page}>
       <AppHeader />
@@ -38,12 +66,13 @@ export default function Home() {
           <p>Loading...</p>
         ) : (
           <ShoppingList
-            items={items}
+            items={sortedItems}
             onToggle={(id) => {
               const item = items.find((i) => i.id === id);
               if (item) update(id, { checked: !item.checked });
             }}
             onDelete={remove}
+            onReorder={handleReorder}
           />
         )}
       </main>
