@@ -1,0 +1,44 @@
+# .windsurfrules
+
+name: Simple Shopping List PWA Rules
+
+execution:
+  strategy: sequential
+  steps_source: plan.md
+  on_detected_step:
+    - use_step: true
+    - verify_after_execution: true
+    - mark_step_complete_on_verification: true
+
+conventions:
+  framework: nextjs
+  nextjs:
+    app_router: true
+    data_fetching: client-only unless static shell is needed
+    components:
+      style: functional_components
+      file_structure: colocate_by_domain
+    pwa:
+      use_manifest: true
+      register_service_worker: true
+    state_management: react-hooks
+    data_persistence: indexeddb_with_wrapper
+
+safety:
+  modify_only_specified_files: true
+  prevent_unscoped_changes: true
+  retain_unrelated_code: true
+
+verification:
+  check_typescript_types: true
+  run_prettier: true
+  test_new_logic: true
+  inspect_diff: true
+
+completion:
+  mark_step_completed: only_if_verified
+  commit_message_template: "✅ Step {{step_number}}: {{step_title}} completed and verified"
+
+metadata:
+  author: windsurf-ai
+  purpose: Execute PWA implementation plan safely and incrementally

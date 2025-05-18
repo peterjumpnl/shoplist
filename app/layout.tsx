@@ -24,8 +24,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="theme-color" content="#2563eb" />
+        <meta name="description" content="A simple, installable PWA for managing your shopping list." />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
+        {typeof window !== "undefined" && require("../components/InstallPrompt").default()}
+        <script dangerouslySetInnerHTML={{
+          __html: `if ('serviceWorker' in navigator) { window.addEventListener('load', function() { navigator.serviceWorker.register('/service-worker.js'); }); }`
+        }} />
       </body>
     </html>
   );
