@@ -3,13 +3,6 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 html,
 body {
   max-width: 100vw;
@@ -35,8 +28,65 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* SettingsForm basic styling */
+form {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  padding: 20px 16px 16px 16px;
+  margin: 24px auto 0 auto;
+  max-width: 400px;
+}
+
+label {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+input[type="number"], select {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 1rem;
+  background: #fafbfc;
+  margin-left: 8px;
+  margin-right: 4px;
+}
+
+button {
+  border: none;
+  background: #f4f4f4;
+  color: #333;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+button[type="button"]:hover, button[type="submit"]:hover {
+  background: #e5e5e5;
+}
+
+button[style*="color: #e11d48"] {
+  background: none;
+  color: #e11d48;
+  padding: 0 8px;
+}
+
+strong {
+  font-size: 1.08rem;
+  color: #222;
+}
+
+ul {
+  padding-left: 0;
+  margin-top: 8px;
+}
+
+li {
+  margin-bottom: 4px;
 }

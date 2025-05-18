@@ -32,7 +32,16 @@ export default function InputBar({ onSubmit, suggestions = [], onSelectSuggestio
   };
 
   return (
-    <div style={{ position: "relative", width: "100%" }}>
+    <div style={{
+      position: "relative",
+      width: "100%",
+      margin: "0 auto 24px auto",
+      background: "#fff",
+      borderRadius: 14,
+      boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
+      padding: 6,
+      maxWidth: 480
+    }}>
       <input
         ref={inputRef}
         type="text"
@@ -40,7 +49,19 @@ export default function InputBar({ onSubmit, suggestions = [], onSelectSuggestio
         value={value}
         onChange={handleInput}
         onKeyDown={handleKeyDown}
-        style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #ddd", fontSize: 16 }}
+        style={{
+          width: "100%",
+          padding: "14px 16px",
+          borderRadius: 10,
+          border: "1.5px solid #e2e8f0",
+          fontSize: 17,
+          background: "#fafbfc",
+          outline: "none",
+          boxSizing: "border-box",
+          color: "#222",
+          fontWeight: 500,
+          boxShadow: "none"
+        }}
         autoComplete="off"
       />
       {showSuggestions && suggestions.length > 0 && (

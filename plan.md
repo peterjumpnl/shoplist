@@ -92,26 +92,26 @@
 
 ## Weekly Notification Feature
 
-- [ ] Step 13: Setup Notification Logic
+- [x] Step 13: Setup Notification Logic
   - **Task**: Check permission, schedule with timeout, handle reschedule.
   - **Files**:
     - `lib/notify.ts`: Notification setup logic
     - `hooks/useNotification.ts`: Hook to manage settings and schedule
   - **Step Dependencies**: Step 1
 
-- [ ] Step 14: Implement SettingsForm
+- [x] Step 14: Implement SettingsForm
   - **Task**: Time picker, day selector, list of memory items with delete buttons.
   - **Files**:
     - `components/SettingsForm.tsx`: Full settings form
   - **Step Dependencies**: Step 6, Step 13
 
-- [ ] Step 15: Settings Page Integration
+- [x] Step 15: Settings Page Integration
   - **Task**: Render `SettingsForm`, wire up hooks for memory and notification.
   - **Files**:
     - `app/settings/page.tsx`: Hook + UI wiring
   - **Step Dependencies**: Step 14
 
-- [ ] Step 16: Add Time Utilities
+- [x] Step 16: Add Time Utilities
   - **Task**: Helpers for next schedule date/time calculation.
   - **Files**:
     - `lib/time.ts`: `getNextTriggerTime(day, hour, minute)`

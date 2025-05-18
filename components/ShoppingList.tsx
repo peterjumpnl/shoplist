@@ -8,7 +8,7 @@ export interface ShoppingListProps {
 }
 
 export default function ShoppingList({ items, onToggle, onDelete }: ShoppingListProps) {
-  if (!items.length) return <p style={{ opacity: 0.6 }}>No items yet.</p>;
+  if (!items.length) return <p style={{ opacity: 0.7, color: "#b0b0b0", marginTop: 32, fontSize: 18, textAlign: "center" }}>No items yet.</p>;
   return (
     <ul style={{ listStyle: "none", padding: 0 }}>
       {items.map((item) => (
@@ -17,3 +17,4 @@ export default function ShoppingList({ items, onToggle, onDelete }: ShoppingList
     </ul>
   );
 }
+  
