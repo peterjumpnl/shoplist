@@ -2,7 +2,7 @@
 
 ## Project Setup & Configuration
 
-- [ ] Step 1: Initialize Next.js App with App Router
+- [x] Step 1: Initialize Next.js App with App Router
   - **Task**: Create a new Next.js project with TypeScript, App Router, and static export setup.
   - **Files**:
     - `next.config.js`: Enable static export
@@ -11,7 +11,7 @@
   - **Step Dependencies**: None
   - **User Instructions**: Run `npx create-next-app@latest simple-shopping-list-pwa --typescript` and choose App Router.
 
-- [ ] Step 2: Add PWA Manifest and Service Worker
+- [x] Step 2: Add PWA Manifest and Service Worker
   - **Task**: Add manifest, icons, and service worker for offline and installable PWA support.
   - **Files**:
     - `public/manifest.json`: Add metadata, icons, start_url
@@ -20,7 +20,7 @@
     - `next.config.js`: Copy service worker on build
   - **Step Dependencies**: Step 1
 
-- [ ] Step 3: Add Install Prompt Handler
+- [x] Step 3: Add Install Prompt Handler
   - **Task**: Handle `beforeinstallprompt`, provide UI to trigger install.
   - **Files**:
     - `hooks/useInstallPrompt.ts`: Capture event
@@ -29,19 +29,19 @@
 
 ## IndexedDB and Data Layer
 
-- [ ] Step 4: Create IndexedDB Wrapper
+- [x] Step 4: Create IndexedDB Wrapper
   - **Task**: Use `idb` or a small custom wrapper for `shopping_items` and `memory_items` schemas.
   - **Files**:
     - `lib/db.ts`: IndexedDB logic with open/store/get/set/remove
   - **Step Dependencies**: Step 1
 
-- [ ] Step 5: Implement useShoppingList Hook
+- [x] Step 5: Implement useShoppingList Hook
   - **Task**: Create a custom hook to load, persist, and update shopping list items from IndexedDB.
   - **Files**:
     - `hooks/useShoppingList.ts`: Load and sync `shopping_items`
   - **Step Dependencies**: Step 4
 
-- [ ] Step 6: Implement useMemoryItems Hook
+- [x] Step 6: Implement useMemoryItems Hook
   - **Task**: Hook for loading, adding, deleting and updating `memory_items`.
   - **Files**:
     - `hooks/useMemoryItems.ts`: Handles autocomplete memory
@@ -49,7 +49,7 @@
 
 ## Shopping List Core UI
 
-- [ ] Step 7: Create Item and List Components
+- [x] Step 7: Create Item and List Components
   - **Task**: Visual UI for list items and toggle/delete actions.
   - **Files**:
     - `components/Item.tsx`: Checkbox, text, delete button
@@ -84,54 +84,36 @@
     - `components/InputBar.tsx`: Add `onSelect` handler
   - **Step Dependencies**: Step 10
 
+- [ ] Step 12: Responsive Layout & Styling
+  - **Task**: Mobile-first layout, sticky input bar, spacing styles.
+  - **Files**:
+    - `styles/globals.css`: Add classes and base layout
+  - **Step Dependencies**: Step 9
+
 ## Weekly Notification Feature
 
-- [ ] Step 12: Setup Notification Logic
+- [ ] Step 13: Setup Notification Logic
   - **Task**: Check permission, schedule with timeout, handle reschedule.
   - **Files**:
     - `lib/notify.ts`: Notification setup logic
     - `hooks/useNotification.ts`: Hook to manage settings and schedule
   - **Step Dependencies**: Step 1
 
-- [ ] Step 13: Implement SettingsForm
+- [ ] Step 14: Implement SettingsForm
   - **Task**: Time picker, day selector, list of memory items with delete buttons.
   - **Files**:
     - `components/SettingsForm.tsx`: Full settings form
-  - **Step Dependencies**: Step 6, Step 12
+  - **Step Dependencies**: Step 6, Step 13
 
-- [ ] Step 14: Settings Page Integration
+- [ ] Step 15: Settings Page Integration
   - **Task**: Render `SettingsForm`, wire up hooks for memory and notification.
   - **Files**:
     - `app/settings/page.tsx`: Hook + UI wiring
-  - **Step Dependencies**: Step 13
-
-## Final Touches & UX Polish
-
-- [ ] Step 15: Responsive Layout & Styling
-  - **Task**: Mobile-first layout, sticky input bar, spacing, dark/light styles.
-  - **Files**:
-    - `styles/globals.css`: Add classes and base layout
-  - **Step Dependencies**: Step 9
+  - **Step Dependencies**: Step 14
 
 - [ ] Step 16: Add Time Utilities
   - **Task**: Helpers for next schedule date/time calculation.
   - **Files**:
     - `lib/time.ts`: `getNextTriggerTime(day, hour, minute)`
-  - **Step Dependencies**: Step 12
-
-## Testing
-
-- [ ] Step 17: Unit Test Hooks and DB Logic
-  - **Task**: Write tests for `useShoppingList`, `useMemoryItems`, `notify.ts`
-  - **Files**:
-    - `__tests__/useShoppingList.test.ts`
-    - `__tests__/useMemoryItems.test.ts`
-    - `__tests__/notify.test.ts`
-  - **Step Dependencies**: Step 5, Step 6, Step 12
-
-- [ ] Step 18: Integration Test UI Interactions
-  - **Task**: Test adding, toggling, deleting, and auto-completing items.
-  - **Files**:
-    - `__tests__/page.test.tsx`
-  - **Step Dependencies**: Step 9, Step 10
+  - **Step Dependencies**: Step 13
 

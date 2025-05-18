@@ -1,95 +1,55 @@
-import Image from "next/image";
+import React, { useMemo, useState } from "react";
+import { useShoppingList } from "../hooks/useShoppingList";
+import { useMemoryItems } from "../hooks/useMemoryItems";
+import ShoppingList from "../components/ShoppingList";
+import InputBar from "../components/InputBar";
 import styles from "./page.module.css";
 
 export default function Home() {
+  const { items, add, update, remove, loading } = useShoppingList();
+  const { items: memoryItems, add: addMemory } = useMemoryItems();
+  const [input, setInput] = useState("");
+
+  // Suggestions: show memory items that match input and aren't already on the list
+  const suggestions = useMemo(() => {
+    if (!input) return [];
+    const lower = input.toLowerCase();
+    return memoryItems
+      .filter((m) => m.text.toLowerCase().startsWith(lower) && !items.some((i) => i.text.toLowerCase() === m.text.toLowerCase()))
+      .map((m) => m.text)
+      .slice(0, 5);
+  }, [input, memoryItems, items]);
+
+  const handleAdd = async (text: string) => {
+    await add(text);
+    if (!memoryItems.some((m) => m.text.toLowerCase() === text.toLowerCase())) {
+      await addMemory(text);
+    }
+    setInput("");
+  };
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+        <h1>Shopping List</h1>
+        <InputBar
+          onSubmit={handleAdd}
+          suggestions={suggestions}
+          onSelectSuggestion={setInput}
         />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <ShoppingList
+            items={items}
+            onToggle={(id) => {
+              const item = items.find((i) => i.id === id);
+              if (item) update(id, { checked: !item.checked });
+            }}
+            onDelete={remove}
+          />
+        )}
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
